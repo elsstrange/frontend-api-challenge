@@ -1,12 +1,11 @@
 describe('Chitter API Client', () => {
   let client;
   let mockResponse;
-  let weirdThing;
 
   describe('#getPeeps', () => {
     beforeEach(() => {
       client = new chitterApiClient();
-      mockResponse = { json : () => { return mockGetPeepsResponse } }
+      mockResponse = { json : () => { return mockGetPeepsResponse } };
       spyOn(window,"fetch").and.returnValue(mockResponse);
     });
 
@@ -18,6 +17,6 @@ describe('Chitter API Client', () => {
     it('returns peeps data from the API', async () => {
       peeps = await client.getPeeps();
       expect(peeps).toEqual(mockGetPeepsResponse);
-    })
+    });
   });
 });
