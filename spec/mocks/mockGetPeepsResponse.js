@@ -28,4 +28,4 @@ const mockGetPeepsResponse = [
             }
         ]
     }
-]
+];
