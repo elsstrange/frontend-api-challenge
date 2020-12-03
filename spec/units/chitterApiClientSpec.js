@@ -22,6 +22,43 @@ describe('Chitter API Client', () => {
       expect(peeps).toEqual(mockGetPeepsResponse);
     });
   });
+
+  describe('#postPeep', () => {
+    let peepText;
+    let userId;
+    let sessionKey;
+    let postPeepUrl;
+    let postPeepRequest;
+
+    beforeEach(() => {
+      peepText = "example peep";
+      userId = 1;
+      sessionKey = "a_valid_sessionkey";
+
+      postPeepUrl = "https://chitter-backend-api-v2.herokuapp.com/peeps";
+      postPeepRequest = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token token=${sessionKey}`
+        },
+        body: `{"peep":{"user_id":${userId},"body":"${peepText}"}}`
+      };
+
+      mockResponse = { json : () => { return mockPostPeepResponse } };
+      spyOn(window, "fetch").and.returnValue(mockResponse);
+    });
+
+    it('posts a new peep to the API with appropriate call', () => {
+      client.postPeep(peepText, userId, sessionKey);
+      expect(window.fetch).toHaveBeenCalledWith(postPeepUrl, postPeepRequest);
+    });
+
+    it('returns the API response as an object', async () => {
+      peep = await client.postPeep(peepText, userId, sessionKey);
+      expect(peep).toEqual(mockPostPeepResponse);
+    });
+  });
   
   describe('users and sessions', () => {
     let username;
@@ -43,8 +80,9 @@ describe('Chitter API Client', () => {
           headers: {'Content-Type': 'application/json'},
           body: `{"user":{"handle":"${username}","password":"${password}"}}`
         };
+
         mockResponse = { json : () => { return mockPostUserResponse } };
-        spyOn(window,"fetch").and.returnValue(mockResponse);
+        spyOn(window, "fetch").and.returnValue(mockResponse);
       });
 
       it('posts a new user to the API with appropriate call', () => {
@@ -69,8 +107,9 @@ describe('Chitter API Client', () => {
           headers: {'Content-Type': 'application/json'},
           body: `{"session":{"handle":"${username}","password":"${password}"}}`
         };
+
         mockResponse = { json : () => { return mockPostSessionResponse } };
-        spyOn(window,"fetch").and.returnValue(mockResponse);
+        spyOn(window, "fetch").and.returnValue(mockResponse);
       });
 
       it('posts a new user to the API with appropriate call', () => {
