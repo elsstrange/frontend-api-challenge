@@ -52,11 +52,23 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+button {
+  padding: 2%;
+  margin: 2%;
+  background-color: gold;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 h1 {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: xx-large;
   text-align: center;
   margin: 10%;
+}
+
+input {
+  margin: 2%;
 }
 
 .peep {
@@ -79,4 +91,28 @@ h1 {
 
 .peep-attributes {
   padding-bottom: 2.5%;
+}
+
+.float-form {
+  padding: 5%;
+  width: 50%;
+  background-color: lightskyblue;
+  border-style: double;
+  border-color: black;
+  border-width: 2px;
+  position: relative;
+  left: 15%;
+  right: 15%;
+}
+
+#user-form {
+  top: 30%;
+  width: 80%;
+  position: fixed;
+  text-align: center;
+}
+
+#user-identification {
+  background-color: lightgrey;
+  text-align: center;
 }
