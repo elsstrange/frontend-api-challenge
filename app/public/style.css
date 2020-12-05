@@ -115,4 +115,22 @@ input {
 #user-identification {
   background-color: lightgrey;
   text-align: center;
+  margin: 2.5%;
+}
+
+#peep-form-container {
+  text-align: center;
+}
+
+#peep-form {
+  padding: 2%;
+  background-color: lightskyblue;
+  border-style: double;
+  border-color: black;
+  border-width: 2px;
+  margin: 2.5%;
+}
+
+#peep-body {
+  width: 75%;
 }
