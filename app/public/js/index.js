@@ -17,6 +17,7 @@ window.addEventListener('load', () => {
   registerButton.addEventListener('click', () => {
     registrationForm = userForm(element);
     registrationForm.render('register-form');
+    document.getElementById('handle').focus();
 
     document.getElementById('register-form')
       .addEventListener('submit', (event) => {
@@ -28,14 +29,33 @@ window.addEventListener('load', () => {
           .then((userData) => {
             user = userData;
             // Some error handling required here for failed sign-up.
-          }).then(() => {
+          })
+          .then(() => {
             return client.postSession(handle, password);
-          }).then((sessionData) => {
+          })
+          .then((sessionData) => {
             session = sessionData;
-          }).then(() => {
+          })
+          .then(() => {
             userIdBlock.hide()
             registrationForm.hide()
             peepForm(element).render()
+          })
+          .then(() => {
+            document.getElementById('peep-body').focus()
+            document.getElementById('peep-form')
+            .addEventListener('submit', (event) => {
+              event.preventDefault();
+              
+              peepInput = document.getElementById('peep-body');
+            
+              client.postPeep(peepInput.value, session.user_id, session.session_key)
+                .then(() => {
+                  peeps.render()
+                  peepInput.value = ''
+                  peepInput.focus()
+                });
+            });
           });
       });
   });
@@ -44,6 +64,7 @@ window.addEventListener('load', () => {
   signInButton.addEventListener('click', () => {
     signInForm = userForm(element);
     signInForm.render('signin-form');
+    document.getElementById('handle').focus();
 
     document.getElementById('signin-form')
     .addEventListener('submit', (event) => {
@@ -62,15 +83,18 @@ window.addEventListener('load', () => {
           peepForm(element).render()
         })
         .then(() => {
+          document.getElementById('peep-body').focus()
           document.getElementById('peep-form')
           .addEventListener('submit', (event) => {
             event.preventDefault();
             
-            body = document.getElementById('peep-body').value;
+            peepInput = document.getElementById('peep-body');
             
-            client.postPeep(body, session.user_id, session.session_key)
+            client.postPeep(peepInput.value, session.user_id, session.session_key)
               .then(() => {
                 peeps.render()
+                peepInput.value = ''
+                peepInput.focus()
               });
           });
         });
