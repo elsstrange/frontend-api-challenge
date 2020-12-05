@@ -1,11 +1,15 @@
 const Peeps = (element, client) => {
-  let targetElement = element;
   let apiClient = client;
+  let targetElement = element;
+  let container = document.createElement('div');
+  container.setAttribute('id', 'peeps-container');
+  targetElement.appendChild(container);
   
   async function render() {
     let data = await apiClient.getPeeps()
+    container.innerHTML = ""
     data.forEach(peep => {
-      targetElement.appendChild(makePeepElement(peep));
+      container.appendChild(makePeepElement(peep));
     });
   }
 
